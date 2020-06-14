@@ -1,0 +1,14 @@
+type Comment {
+    id: ID
+    sort: HeartSort
+    parentId: Int
+    parentCommentId: Int
+    userId: Int
+    content: String
+    isSpoiler: Boolean
+    heartCount: Int
+}
+enum HeartSort {
+    CONTENT
+    COLLECTION
+}

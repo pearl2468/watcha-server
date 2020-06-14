@@ -1,0 +1,13 @@
+type Collection {
+    id: Int
+    userId: Int
+    title: String
+    descr: String
+    heartCount: Int
+    commentCount: Int
+}
+type CollectionContent {
+    id: Int
+    collectionId: Int
+    contentId: Int
+}

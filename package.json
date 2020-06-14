@@ -1,0 +1,31 @@
+{
+  "name": "watcha-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "cross-env APP_ENV=prod nodemon -x ts-node src/main.ts",
+    "dev": "cross-env APP_ENV=dev nodemon -x ts-node src/main.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.0.5",
+    "all": "0.0.0",
+    "apollo-server": "^2.13.1",
+    "apollo-server-express": "^2.13.1",
+    "bcryptjs": "^2.4.3",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "graphql": "^15.0.0",
+    "graphql-playground-middleware-express": "^1.7.14",
+    "graphql-tools": "^5.0.0",
+    "merge-graphql-schemas": "^1.7.8",
+    "mongoose": "^5.9.14",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25",
+    "typeorm-naming-strategies": "^1.1.0"
+  },
+  "devDependencies": {}
+}

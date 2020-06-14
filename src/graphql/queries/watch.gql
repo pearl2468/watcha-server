@@ -1,0 +1,25 @@
+type Query {
+    watchs(category: String, status: Status, userId: Int, page: Int, size: Int): [Watch!]!
+}
+type Mutation {
+    saveWatch(input: WatchInput): Watch
+    deleteWatch(id: ID!): Watch
+}
+input WatchInput {
+    id: Int
+    contentId: Int!
+    userId: Int!
+    status: Status!
+}
+type Watch {
+    id: ID!
+    contentId: Int
+    userId: Int
+    status: Status
+    content: Content
+}
+enum Status {
+    NONE
+    WISH
+    WATCHING
+}

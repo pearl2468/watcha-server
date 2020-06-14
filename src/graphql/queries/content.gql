@@ -1,0 +1,37 @@
+type Query {
+    searchContents(category: Category, query: String, page: Int, size: Int): [Content!]!
+    randomContents(category: Category, size: Int): [Content!]!
+    topScoredMovies(page: Int, size: Int): [Content!]!
+    mostRatedBooks(page: Int, size: Int): [Content!]!
+    
+    notInterestedContents(userId: Int, page: Int, size: Int): [Content!]!
+    bestContents: [Content!]!
+    mostRatedContents: [Content!]!
+    ratedContents: [Content!]!
+    search(category: Category, query: String, page: Int, size: Int): [Content!]!
+}
+type Mutation {
+    createContent(input: ContentInput): Content
+    updateContent(id: ID!, input: ContentInput): Content
+    deleteContent(id: ID!): Content
+}
+input ContentInput {
+    title: String!
+    category: Category
+}
+type Content {
+    id: ID
+    title: String
+    """attr"""
+    category: Category
+    score: Float
+    rateCount: Int
+    commentCount: Int
+    createdAt: Date
+    updatedAt: Date
+}
+enum Category {
+    MOVIE
+    BOOK
+    TV
+}

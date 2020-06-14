@@ -1,0 +1,10 @@
+type Heart {
+    id: ID
+    sort: HeartSort
+    parentId: Int
+    userId: Int
+}
+enum HeartSort {
+    COLLECTION
+    COMMENT
+}

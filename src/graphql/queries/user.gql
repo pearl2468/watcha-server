@@ -1,0 +1,30 @@
+type Query {
+    searchUsers(query: String, page: Int, size: Int): [User]
+}
+type Mutation {
+    join(input: UserInput): User
+    updateUser(id: ID!, input: UserInput): User
+    updateUserPassword(id: ID!, password: String): User
+    deleteUser(id: ID!): User
+}
+input UserInput {
+    name: String
+    email: String
+    password: String
+    descr: String
+    role: Role
+}
+type User {
+    id: ID
+    name: String
+    email: String
+    password: String
+    descr: String
+    role: Role
+    createdAt: Date
+    updatedAt: Date
+}
+enum Role {
+    ADMIN
+    USER
+}

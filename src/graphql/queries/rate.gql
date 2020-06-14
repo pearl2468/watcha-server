@@ -1,0 +1,6 @@
+type Rate {
+    id: ID
+    contentId: Int
+    userId: Int
+    score: Float
+}
