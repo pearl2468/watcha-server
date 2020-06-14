@@ -18,11 +18,12 @@ type Mutation {
 input ContentInput {
     title: String!
     category: Category
+    attr: JSON
 }
 type Content {
     id: ID
     title: String
-    """attr"""
+    attr: JSON
     category: Category
     score: Float
     rateCount: Int

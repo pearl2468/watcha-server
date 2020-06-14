@@ -67,12 +67,14 @@ export const resolvers = {
             var content = new Content();
             content.title = input.title;
             content.category = input.category;
+            content.attr = input.attr;
             return await content.save();
         },
         async updateContent(root, { id, input }) {
             var content = await Content.findOne({ id: id });
             content.title = input.title;
             content.category = input.category;
+            content.attr = input.attr;
             return await content.save();
         },
         async deleteContent(root, { id }) {
