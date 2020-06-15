@@ -7,6 +7,10 @@ type Mutation {
     updateUserPassword(id: ID!, password: String): User
     deleteUser(id: ID!): User
 }
+enum Role {
+    ADMIN
+    USER
+}
 input UserInput {
     name: String
     email: String
@@ -23,8 +27,4 @@ type User {
     role: Role
     createdAt: Date
     updatedAt: Date
-}
-enum Role {
-    ADMIN
-    USER
 }

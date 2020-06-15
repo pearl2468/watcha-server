@@ -5,6 +5,8 @@ type Collection {
     descr: String
     heartCount: Int
     commentCount: Int
+    createdAt: Date
+    updatedAt: Date
 }
 type CollectionContent {
     id: Int

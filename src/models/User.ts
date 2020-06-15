@@ -7,8 +7,8 @@ import { Watch } from "./Watch";
 const saltRounds = 10;
 
 export enum Role {
-    ADMIN = "admin",
-    USER = "user"
+    ADMIN = "ADMIN",
+    USER = "USER"
 }
 
 @Entity()
@@ -51,22 +51,14 @@ export class User extends BaseEntity {
 
     @BeforeInsert()
     BeforeInsert() {
-        this.setCreatedAt();
+        this.createdAt = new Date();
         this.hashPasswordBeforeCreate();
     }
 
     @BeforeUpdate()
     BeforeUpdate() {
-        this.setUpdateAt();
-        this.hashPasswordBeforeUpdate();
-    }
-
-    setCreatedAt() {
-        this.createdAt = new Date();
-    }
-
-    setUpdateAt() {
         this.updatedAt = new Date();
+        this.hashPasswordBeforeUpdate();
     }
 
     hashPasswordBeforeCreate() {

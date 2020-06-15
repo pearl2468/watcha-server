@@ -3,6 +3,12 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDa
 import { User } from "./User";
 import { Content } from "./Content";
 
+export enum Status {
+    NONE = "NONE",
+    WISH = "WISH",
+    WATCHING = "WATCHING"
+}
+
 @Entity()
 export class Watch extends BaseEntity {
 
@@ -15,8 +21,11 @@ export class Watch extends BaseEntity {
     @Column()
     userId: number;
 
-    @Column()
-    status: string;
+    @Column({
+        type: "enum",
+        enum: Status
+    })
+    status: Status;
 
     @ManyToOne(type => User, user => user.watchs)
     user: User;
@@ -32,19 +41,11 @@ export class Watch extends BaseEntity {
 
     @BeforeInsert()
     BeforeInsert() {
-        this.setCreatedAt();
+        this.createdAt = new Date();
     }
 
     @BeforeUpdate()
     BeforeUpdate() {
-        this.setUpdateAt();
-    }
-
-    setCreatedAt() {
-        this.createdAt = new Date();
-    }
-
-    setUpdateAt() {
         this.updatedAt = new Date();
     }
 

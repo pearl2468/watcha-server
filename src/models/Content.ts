@@ -2,6 +2,12 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDa
 
 import { Watch } from "./Watch";
 
+export enum Category {
+    MOVIE = "MOVIE",
+    BOOK = "BOOK",
+    TV = "TV"
+}
+
 @Entity()
 export class Content extends BaseEntity {
 
@@ -13,10 +19,13 @@ export class Content extends BaseEntity {
 
     // TODO https://typeorm.io/#/entities/simple-json-column-type
     @Column("simple-json")
-    attr: { director: string };
+    attr: {};
 
-    @Column()
-    category: string;
+    @Column({
+        type: "enum",
+        enum: Category
+    })
+    category: Category;
 
     @Column({ default: 0 })
     score: number;
@@ -38,19 +47,11 @@ export class Content extends BaseEntity {
 
     @BeforeInsert()
     BeforeInsert() {
-        this.setCreatedAt();
+        this.createdAt = new Date();
     }
 
     @BeforeUpdate()
     BeforeUpdate() {
-        this.setUpdateAt();
-    }
-
-    setCreatedAt() {
-        this.createdAt = new Date();
-    }
-
-    setUpdateAt() {
         this.updatedAt = new Date();
     }
 

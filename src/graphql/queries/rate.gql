@@ -3,4 +3,6 @@ type Rate {
     contentId: Int
     userId: Int
     score: Float
+    createdAt: Date
+    updatedAt: Date
 }

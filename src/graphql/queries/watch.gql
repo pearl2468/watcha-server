@@ -6,6 +6,11 @@ type Mutation {
     saveWatch(userId: Int, contentId: Int, status: Status): Watch
     deleteWatch(userId: Int, contentId: Int): Watch
 }
+enum Status {
+    NONE
+    WISH
+    WATCHING
+}
 type Watch {
     id: ID!
     contentId: Int
@@ -14,9 +19,4 @@ type Watch {
     content: Content
     createdAt: Date
     updatedAt: Date
-}
-enum Status {
-    NONE
-    WISH
-    WATCHING
 }

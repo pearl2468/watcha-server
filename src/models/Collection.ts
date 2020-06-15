@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 
 @Entity()
 export class Collection extends BaseEntity {
@@ -15,11 +15,27 @@ export class Collection extends BaseEntity {
     @Column()
     descr: string;
 
-    @Column()
+    @Column({ default: 0 })
     heartCount: number;
 
-    @Column()
+    @Column({ default: 0 })
     commentCount: number;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    @BeforeInsert()
+    BeforeInsert() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    BeforeUpdate() {
+        this.updatedAt = new Date();
+    }
 
 }
 

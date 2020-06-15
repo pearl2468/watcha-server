@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 
 @Entity()
 export class Rate extends BaseEntity {
@@ -12,7 +12,23 @@ export class Rate extends BaseEntity {
     @Column()
     userId: number;
 
-    @Column()
+    @Column({ default: 0 })
     score: number;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    @BeforeInsert()
+    BeforeInsert() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    BeforeUpdate() {
+        this.updatedAt = new Date();
+    }
 
 }

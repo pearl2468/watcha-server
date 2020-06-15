@@ -1,5 +1,10 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 import { User } from "./User";
+
+export enum CommentSort {
+    CONTENT = "CONTENT",
+    COLLECTION = "COLLECTION"
+}
 
 @Entity()
 export class Comment extends BaseEntity {
@@ -7,8 +12,11 @@ export class Comment extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    sort: string;
+    @Column({
+        type: "enum",
+        enum: CommentSort
+    })
+    sort: CommentSort;
 
     @Column()
     parentId: number;
@@ -25,9 +33,26 @@ export class Comment extends BaseEntity {
     @Column()
     isSpoiler: boolean;
 
-    @Column()
+    @Column({ default: 0 })
     heartCount: number;
 
     @ManyToOne(type => User, user => user.comments)
     user: User;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    @BeforeInsert()
+    BeforeInsert() {
+        this.createdAt = new Date();
+    }
+
+    @BeforeUpdate()
+    BeforeUpdate() {
+        this.updatedAt = new Date();
+    }
+
 }

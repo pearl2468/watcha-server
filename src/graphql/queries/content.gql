@@ -14,6 +14,11 @@ type Mutation {
     updateContent(id: ID!, input: ContentInput): Content
     deleteContent(id: ID!): Content
 }
+enum Category {
+    MOVIE
+    BOOK
+    TV
+}
 input ContentInput {
     title: String!
     category: Category
@@ -29,9 +34,4 @@ type Content {
     commentCount: Int
     createdAt: Date
     updatedAt: Date
-}
-enum Category {
-    MOVIE
-    BOOK
-    TV
 }
