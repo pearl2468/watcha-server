@@ -1,15 +1,10 @@
 type Query {
-    watchs(category: String, status: Status, userId: Int, page: Int, size: Int): [Watch!]!
+    watchContents(category: Category, status: Status, userId: Int, page: Int, size: Int): [Watch!]!
+    notInterestedContents(userId: Int, page: Int, size: Int): [Watch!]!
 }
 type Mutation {
-    saveWatch(input: WatchInput): Watch
-    deleteWatch(id: ID!): Watch
-}
-input WatchInput {
-    id: Int
-    contentId: Int!
-    userId: Int!
-    status: Status!
+    saveWatch(userId: Int, contentId: Int, status: Status): Watch
+    deleteWatch(userId: Int, contentId: Int): Watch
 }
 type Watch {
     id: ID!
@@ -17,6 +12,8 @@ type Watch {
     userId: Int
     status: Status
     content: Content
+    createdAt: Date
+    updatedAt: Date
 }
 enum Status {
     NONE

@@ -1,4 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+
 import { User } from "./User";
 import { Content } from "./Content";
 
@@ -22,5 +23,29 @@ export class Watch extends BaseEntity {
 
     @ManyToOne(type => Content, content => content.watchs)
     content: Content;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    @BeforeInsert()
+    BeforeInsert() {
+        this.setCreatedAt();
+    }
+
+    @BeforeUpdate()
+    BeforeUpdate() {
+        this.setUpdateAt();
+    }
+
+    setCreatedAt() {
+        this.createdAt = new Date();
+    }
+
+    setUpdateAt() {
+        this.updatedAt = new Date();
+    }
 
 }

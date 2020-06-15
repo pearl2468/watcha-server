@@ -4,7 +4,6 @@ type Query {
     topScoredMovies(page: Int, size: Int): [Content!]!
     mostRatedBooks(page: Int, size: Int): [Content!]!
     
-    notInterestedContents(userId: Int, page: Int, size: Int): [Content!]!
     bestContents: [Content!]!
     mostRatedContents: [Content!]!
     ratedContents: [Content!]!

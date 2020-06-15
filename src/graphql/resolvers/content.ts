@@ -40,24 +40,6 @@ export const resolvers = {
             });
         },
 
-        /* 
-        async notInterestedContents(root, { userId, page, size }) {
-            return await Content.find({
-                relations: ["watch"],
-                where: [
-                    {
-                        watchs: {
-                            status: "NONE",
-                            userId: userId
-                        }
-                    }
-                ],
-                order: { title: "ASC" }, // TODO 
-                skip: page * size,
-                take: size
-            });
-        }, */
-
         async bestContents() { },
         async mostRatedContents() { },
         async ratedContents() { }
