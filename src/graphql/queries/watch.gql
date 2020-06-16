@@ -1,5 +1,6 @@
 type Query {
     watchContents(category: Category, status: Status, userId: Int, page: Int, size: Int): [Watch!]!
+    watchCount(category: Category, status: Status, userId: Int): Int
     notInterestedContents(userId: Int, page: Int, size: Int): [Watch!]!
 }
 type Mutation {

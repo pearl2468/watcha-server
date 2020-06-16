@@ -1,6 +1,7 @@
 import { Like, getConnection } from "typeorm";
 
-import { Content } from '../../models/Content';
+import { Content, Category } from '../../models/Content';
+import { Role } from "../../models/User";
 
 export const resolvers = {
     Query: {
@@ -25,7 +26,7 @@ export const resolvers = {
         },
         async topScoredMovies(root, { page, size }) {
             return await Content.find({
-                where: { category: "MOVIE" },
+                where: { category: Role.ADMIN },
                 order: { score: "DESC" },
                 skip: page * size,
                 take: size
@@ -33,7 +34,7 @@ export const resolvers = {
         },
         async mostRatedBooks(root, { page, size }) {
             return await Content.find({
-                where: { category: "BOOK" },
+                where: { category: Category.BOOK },
                 order: { rateCount: "DESC" },
                 skip: page * size,
                 take: size

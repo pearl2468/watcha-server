@@ -1,6 +1,25 @@
+type Query {
+    popularComments: [Comment]
+    usersCommentCount(userId: Int): Int
+    usersComments(userId: Int): [Comment]
+    heartedComments: [Comment]
+    contentsComments: [Comment]
+}
+type Mutation {
+    createComment(input: CommentInput): Comment
+    deleteComment(id: ID!): Comment
+}
 enum CommentSort {
     CONTENT
     COLLECTION
+}
+input CommentInput {
+    sort: CommentSort
+    parentId: Int
+    parentCommentId: Int
+    userId: Int
+    content: String
+    isSpoiler: Boolean
 }
 type Comment {
     id: ID

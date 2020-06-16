@@ -12,6 +12,13 @@ export const resolvers = {
                 .skip(page * size).take(size)
                 .getMany();
         },
+        async watchCount(root, { category, status, userId }) {
+            return await getConnection()
+                .getRepository(Watch).createQueryBuilder("watch")
+                .innerJoinAndSelect("watch.content", "content", "content.category = :category", { category: category })
+                .where("watch.status = :status AND watch.user_id = :userId", { status: status, userId: userId })
+                .getCount();
+        },
         async notInterestedContents(root, { userId, page, size }) {
             return await getConnection()
                 .getRepository(Watch).createQueryBuilder("watch")
