@@ -17,7 +17,6 @@ export class Content extends BaseEntity {
     @Column()
     title: string;
 
-    // TODO https://typeorm.io/#/entities/simple-json-column-type
     @Column("simple-json")
     attr: {};
 

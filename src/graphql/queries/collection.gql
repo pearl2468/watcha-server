@@ -1,3 +1,18 @@
+type Query {
+    popularCollections: [Collection]
+    usersCollectionCount(userId: Int): Int
+    usersCollections(userId: Int, page: Int, size: Int): [Collection]
+    contentsCollections(contentId: Int, page: Int, size: Int): [Collection]
+}
+type Mutation {
+    createCollection(input: CollectionInput): Collection
+    deleteCollection(id: ID!): Collection
+}
+input CollectionInput{
+    userId: Int
+    title: String
+    descr: String
+}
 type Collection {
     id: Int
     userId: Int

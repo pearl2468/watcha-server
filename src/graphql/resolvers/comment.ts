@@ -1,4 +1,4 @@
-import { Comment } from "../../models/Comment";
+import { Comment, CommentSort } from "../../models/Comment";
 
 export const resolvers = {
     Query: {
@@ -10,14 +10,36 @@ export const resolvers = {
                 where: { userId: userId }
             });
         },
-        async usersComments(root, { userId }) {
+        async usersComments(root, { userId, page, size }) {
             return await Comment.find({
                 where: { userId: userId },
-                order: { updatedAt: "DESC" }
+                order: { createdAt: "DESC" },
+                skip: page * size,
+                take: size
             });
         },
-        async heartedComments() { },
-        async contentsComments() { }
+        async contentsComments(root, { contentId, page, size }) {
+            return await Comment.find({
+                where: {
+                    parentId: contentId,
+                    sort: CommentSort.CONTENT
+                },
+                order: { createdAt: "DESC" },
+                skip: page * size,
+                take: size
+            });
+        },
+        async collectionsComments(root, { collectionId, page, size }) {
+            return await Comment.find({
+                where: {
+                    parentId: collectionId,
+                    sort: CommentSort.COLLECTION
+                },
+                order: { createdAt: "DESC" },
+                skip: page * size,
+                take: size
+            });
+        }
     },
     Mutation: {
         async createComment(root, { input }) {

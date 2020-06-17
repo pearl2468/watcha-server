@@ -1,9 +1,9 @@
 type Query {
     popularComments: [Comment]
     usersCommentCount(userId: Int): Int
-    usersComments(userId: Int): [Comment]
-    heartedComments: [Comment]
-    contentsComments: [Comment]
+    usersComments(userId: Int, page: Int, size: Int): [Comment]
+    contentsComments(contentId: Int, page: Int, size: Int): [Comment]
+    collectionsComments(collectionId: Int, page: Int, size: Int): [Comment]
 }
 type Mutation {
     createComment(input: CommentInput): Comment
