@@ -5,8 +5,6 @@ type Query {
     mostRatedBooks(page: Int, size: Int): [Content!]!
     
     bestContents: [Content!]!
-    mostRatedContents: [Content!]!
-    ratedContents: [Content!]!
     search(category: Category, query: String, page: Int, size: Int): [Content!]!
 }
 type Mutation {

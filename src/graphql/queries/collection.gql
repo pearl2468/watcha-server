@@ -8,7 +8,7 @@ type Mutation {
     createCollection(input: CollectionInput): Collection
     deleteCollection(id: ID!): Collection
 }
-input CollectionInput{
+input CollectionInput {
     userId: Int
     title: String
     descr: String

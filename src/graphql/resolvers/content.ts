@@ -41,9 +41,7 @@ export const resolvers = {
             });
         },
 
-        async bestContents() { },
-        async mostRatedContents() { },
-        async ratedContents() { }
+        async bestContents() { }
     },
     Mutation: {
         async createContent(root, { input }) {

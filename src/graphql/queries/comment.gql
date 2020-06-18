@@ -1,7 +1,7 @@
 type Query {
     popularComments: [Comment]
     usersCommentCount(userId: Int): Int
-    usersComments(userId: Int, page: Int, size: Int): [Comment]
+    usersComments(category: Category, userId: Int, page: Int, size: Int): [Comment]
     contentsComments(contentId: Int, page: Int, size: Int): [Comment]
     collectionsComments(collectionId: Int, page: Int, size: Int): [Comment]
 }

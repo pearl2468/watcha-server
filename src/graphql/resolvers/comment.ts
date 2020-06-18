@@ -1,3 +1,5 @@
+import { getConnection } from "typeorm";
+
 import { Comment, CommentSort } from "../../models/Comment";
 
 export const resolvers = {
@@ -10,13 +12,14 @@ export const resolvers = {
                 where: { userId: userId }
             });
         },
-        async usersComments(root, { userId, page, size }) {
-            return await Comment.find({
-                where: { userId: userId },
-                order: { createdAt: "DESC" },
-                skip: page * size,
-                take: size
-            });
+        async usersComments(root, { category, userId, page, size }) {
+            return await getConnection()
+                .getRepository(Comment).createQueryBuilder("comment")
+                .innerJoinAndSelect("comment.content", "content")
+                .where("comment.sort = 'CONTENT' AND comment.user_id = :userId AND content.category = :category", { userId: userId, category: category })
+                .orderBy("comment.id", "DESC")
+                .skip(page * size).take(size)
+                .getMany();
         },
         async contentsComments(root, { contentId, page, size }) {
             return await Comment.find({

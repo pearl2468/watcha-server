@@ -1,6 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 
 import { Watch } from "./Watch";
+import { Rate } from "./Rate";
 
 export enum Category {
     MOVIE = "MOVIE",
@@ -37,6 +38,9 @@ export class Content extends BaseEntity {
 
     @OneToMany(type => Watch, watch => watch.user)
     watchs: Watch[];
+
+    @OneToMany(type => Rate, rate => rate.user)
+    rates: Rate[];
 
     @CreateDateColumn()
     createdAt: Date;

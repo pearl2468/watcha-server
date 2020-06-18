@@ -1,8 +1,24 @@
+type Query {
+    ratedContentCount(category: Category, userId: Int): Int
+    ratedContents(category: Category, userId: Int, page: Int, size: Int): [Rate]
+    ratedContentsByScore(category: Category, score: Float, userId: Int, page: Int, size: Int): [Rate]
+    mostRatedScore(userId: Int): Int
+}
+type Mutation {
+    saveRate(input: RateInput): Rate
+    deleteRate(id: ID!): Rate
+}
+input RateInput {
+    contentId: Int
+    userId: Int
+    score: Float
+}
 type Rate {
     id: ID
     contentId: Int
     userId: Int
     score: Float
+    content: Content
     createdAt: Date
     updatedAt: Date
 }

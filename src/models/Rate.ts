@@ -1,4 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, ManyToOne } from "typeorm";
+
+import { Content } from "./Content";
 
 @Entity()
 export class Rate extends BaseEntity {
@@ -14,6 +16,9 @@ export class Rate extends BaseEntity {
 
     @Column({ default: 0 })
     score: number;
+
+    @ManyToOne(type => Content, content => content.rates)
+    content: Content;
 
     @CreateDateColumn()
     createdAt: Date;
