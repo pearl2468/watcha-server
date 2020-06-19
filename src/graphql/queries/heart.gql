@@ -1,6 +1,20 @@
+type Query {
+    heartedCount(userId: Int): Int
+    heartedCollections(userId: Int, page: Int, size: Int): [Heart]
+    heartedComments(userId: Int, page: Int, size: Int): [Heart]
+}
+type Mutation {
+    saveHeart(input: HeartInput): Heart
+    deleteHeart(id: ID!): Heart
+}
 enum HeartSort {
     COLLECTION
     COMMENT
+}
+input HeartInput {
+    sort: HeartSort
+    parentId: Int
+    userId: Int
 }
 type Heart {
     id: ID

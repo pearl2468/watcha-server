@@ -15,8 +15,8 @@ export const resolvers = {
         async usersComments(root, { category, userId, page, size }) {
             return await getConnection()
                 .getRepository(Comment).createQueryBuilder("comment")
-                .innerJoinAndSelect("comment.content", "content")
-                .where("comment.sort = 'CONTENT' AND comment.user_id = :userId AND content.category = :category", { userId: userId, category: category })
+                .innerJoinAndSelect("comment.content", "content", "content.category = :category", { category: category })
+                .where("comment.sort = 'CONTENT' AND comment.user_id = :userId", { userId: userId })
                 .orderBy("comment.id", "DESC")
                 .skip(page * size).take(size)
                 .getMany();
@@ -51,7 +51,7 @@ export const resolvers = {
             comment.parentId = input.parentId;
             comment.parentCommentId = input.parentCommentId;
             comment.userId = input.userId;
-            comment.content = input.content;
+            comment.text = input.text;
             comment.isSpoiler = input.isSpoiler;
             return await comment.save();
         },

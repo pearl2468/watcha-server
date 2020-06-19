@@ -1,4 +1,6 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, OneToMany } from "typeorm";
+import { Heart } from "./Heart";
+import { Comment } from "./Comment";
 
 @Entity()
 export class Collection extends BaseEntity {
@@ -20,6 +22,12 @@ export class Collection extends BaseEntity {
 
     @Column({ default: 0 })
     commentCount: number;
+
+    @OneToMany(type => Heart, heart => heart.collection)
+    hearts: Heart[];
+
+    @OneToMany(type => Comment, comment => comment.collection)
+    comments: Comment[];
 
     @CreateDateColumn()
     createdAt: Date;

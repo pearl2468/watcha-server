@@ -1,4 +1,7 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate, ManyToOne } from "typeorm";
+
+import { Comment } from "./Comment";
+import { Collection } from "./Collection";
 
 export enum HeartSort {
     COLLECTION = "COLLECTION",
@@ -28,6 +31,12 @@ export class Heart extends BaseEntity {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @ManyToOne(type => Comment, comment => comment.hearts)
+    comment: Comment;
+
+    @ManyToOne(type => Collection, collection => collection.hearts)
+    collection: Collection;
 
     @BeforeInsert()
     BeforeInsert() {

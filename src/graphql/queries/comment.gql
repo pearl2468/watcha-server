@@ -18,7 +18,7 @@ input CommentInput {
     parentId: Int
     parentCommentId: Int
     userId: Int
-    content: String
+    text: String
     isSpoiler: Boolean
 }
 type Comment {
@@ -27,7 +27,7 @@ type Comment {
     parentId: Int
     parentCommentId: Int
     userId: Int
-    content: String
+    text: String
     isSpoiler: Boolean
     heartCount: Int
     createdAt: Date

@@ -6,9 +6,7 @@ export const resolvers = {
     Query: {
         async searchUsers(root, { query, page, size }) {
             return await User.find({
-                where: [
-                    { name: Like("%" + query + "%") }
-                ],
+                where: { name: Like("%" + query + "%") },
                 order: { name: "ASC" },
                 skip: page * size,
                 take: size
