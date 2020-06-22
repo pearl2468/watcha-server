@@ -1,9 +1,9 @@
 type Query {
     popularComments: [Comment]
-    usersCommentCount(userId: Int): Int
-    usersComments(category: Category, userId: Int, page: Int, size: Int): [Comment]
-    contentsComments(contentId: Int, page: Int, size: Int): [Comment]
-    collectionsComments(collectionId: Int, page: Int, size: Int): [Comment]
+    usersCommentCount(userId: Int!): Int
+    usersComments(category: Category!, userId: Int!, page: Int!, size: Int!): [Comment]
+    contentsComments(contentId: Int!, page: Int!, size: Int!): [Comment]
+    collectionsComments(collectionId: Int!, page: Int!, size: Int!): [Comment]
 }
 type Mutation {
     createComment(input: CommentInput): Comment
@@ -13,9 +13,9 @@ input CommentInput {
     collectionId: Int
     contentId: Int
     parentCommentId: Int
-    userId: Int
-    text: String
-    isSpoiler: Boolean
+    userId: Int!
+    text: String!
+    isSpoiler: Boolean!
 }
 type Comment {
     id: ID

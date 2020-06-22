@@ -9,8 +9,8 @@ type Mutation {
     deleteCollection(id: ID!): Collection
 }
 input CollectionInput {
-    userId: Int
-    title: String
+    userId: Int!
+    title: String!
     descr: String
 }
 type Collection {

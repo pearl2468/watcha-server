@@ -1,5 +1,6 @@
+import { IsNull, Not } from "typeorm";
+
 import { Heart } from "../../models/Heart";
-import { IsNull } from "typeorm";
 
 export const resolvers = {
     Query: {
@@ -10,7 +11,7 @@ export const resolvers = {
         },
         async heartedCollections(root, { userId, page, size }) {
             return await Heart.find({
-                where: { userId: userId, collectionId: !IsNull() },
+                where: { userId: userId, collectionId: Not(IsNull()) },
                 order: { createdAt: "ASC" },
                 skip: page * size,
                 take: size
@@ -18,7 +19,7 @@ export const resolvers = {
         },
         async heartedComments(root, { userId, page, size }) {
             return await Heart.find({
-                where: { userId: userId, commentId: !IsNull() },
+                where: { userId: userId, commentId: Not(IsNull()) },
                 order: { createdAt: "ASC" },
                 skip: page * size,
                 take: size
@@ -43,7 +44,6 @@ export const resolvers = {
                 heart.remove();
             });
 
-            newHeart.collectionId = input.collectionId;
             newHeart.userId = input.userId;
             return await newHeart.save();
         },
