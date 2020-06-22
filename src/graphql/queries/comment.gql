@@ -9,13 +9,9 @@ type Mutation {
     createComment(input: CommentInput): Comment
     deleteComment(id: ID!): Comment
 }
-enum CommentSort {
-    CONTENT
-    COLLECTION
-}
 input CommentInput {
-    sort: CommentSort
-    parentId: Int
+    collectionId: Int
+    contentId: Int
     parentCommentId: Int
     userId: Int
     text: String
@@ -23,8 +19,8 @@ input CommentInput {
 }
 type Comment {
     id: ID
-    sort: CommentSort
-    parentId: Int
+    collectionId: Int
+    contentId: Int
     parentCommentId: Int
     userId: Int
     text: String
@@ -32,4 +28,5 @@ type Comment {
     heartCount: Int
     createdAt: Date
     updatedAt: Date
+    content: Content
 }

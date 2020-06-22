@@ -1,6 +1,6 @@
 import { getConnection } from "typeorm";
 
-import { Comment, CommentSort } from "../../models/Comment";
+import { Comment } from "../../models/Comment";
 
 export const resolvers = {
     Query: {
@@ -10,23 +10,22 @@ export const resolvers = {
         async usersCommentCount(root, { userId }) {
             return await Comment.count({
                 where: { userId: userId }
+                , relations: ["content"]
             });
         },
         async usersComments(root, { category, userId, page, size }) {
             return await getConnection()
                 .getRepository(Comment).createQueryBuilder("comment")
                 .innerJoinAndSelect("comment.content", "content", "content.category = :category", { category: category })
-                .where("comment.sort = 'CONTENT' AND comment.user_id = :userId", { userId: userId })
+                .where("comment.user_id = :userId", { userId: userId })
                 .orderBy("comment.id", "DESC")
                 .skip(page * size).take(size)
                 .getMany();
         },
         async contentsComments(root, { contentId, page, size }) {
             return await Comment.find({
-                where: {
-                    parentId: contentId,
-                    sort: CommentSort.CONTENT
-                },
+                where: { contentId: contentId },
+                relations: ["content"],
                 order: { createdAt: "DESC" },
                 skip: page * size,
                 take: size
@@ -34,10 +33,7 @@ export const resolvers = {
         },
         async collectionsComments(root, { collectionId, page, size }) {
             return await Comment.find({
-                where: {
-                    parentId: collectionId,
-                    sort: CommentSort.COLLECTION
-                },
+                where: { collectionId: collectionId },
                 order: { createdAt: "DESC" },
                 skip: page * size,
                 take: size
@@ -47,8 +43,10 @@ export const resolvers = {
     Mutation: {
         async createComment(root, { input }) {
             var comment = new Comment();
-            comment.sort = input.sort;
-            comment.parentId = input.parentId;
+            if (input.contentId != null)
+                comment.contentId = input.contentId;
+            if (input.collectionId != null)
+                comment.collectionId = input.collectionId;
             comment.parentCommentId = input.parentCommentId;
             comment.userId = input.userId;
             comment.text = input.text;

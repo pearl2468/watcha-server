@@ -5,25 +5,17 @@ import { Heart } from "./Heart";
 import { Content } from "./Content";
 import { Collection } from "./Collection";
 
-export enum CommentSort {
-    CONTENT = "CONTENT",
-    COLLECTION = "COLLECTION"
-}
-
 @Entity()
 export class Comment extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type: "enum",
-        enum: CommentSort
-    })
-    sort: CommentSort;
+    @Column()
+    collectionId: number;
 
     @Column()
-    parentId: number;
+    contentId: number;
 
     @Column()
     parentCommentId: number;

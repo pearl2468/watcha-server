@@ -1,4 +1,5 @@
-import { Heart, HeartSort } from "../../models/Heart";
+import { Heart } from "../../models/Heart";
+import { IsNull } from "typeorm";
 
 export const resolvers = {
     Query: {
@@ -9,7 +10,7 @@ export const resolvers = {
         },
         async heartedCollections(root, { userId, page, size }) {
             return await Heart.find({
-                where: { userId: userId, sort: HeartSort.COLLECTION },
+                where: { userId: userId, collectionId: !IsNull() },
                 order: { createdAt: "ASC" },
                 skip: page * size,
                 take: size
@@ -17,7 +18,7 @@ export const resolvers = {
         },
         async heartedComments(root, { userId, page, size }) {
             return await Heart.find({
-                where: { userId: userId, sort: HeartSort.COMMENT },
+                where: { userId: userId, commentId: !IsNull() },
                 order: { createdAt: "ASC" },
                 skip: page * size,
                 take: size
@@ -26,11 +27,25 @@ export const resolvers = {
     },
     Mutation: {
         async saveHeart(root, { input }) {
-            var heart = new Heart();
-            heart.sort = input.sort;
-            heart.parentId = input.parentId;
-            heart.userId = input.userId;
-            return await heart.save();
+            var hearts = [];
+            var newHeart = new Heart();
+
+            if (input.commentId != null) {
+                hearts = await Heart.find({ userId: input.userId, commentId: input.commentId });
+                newHeart.commentId = input.commentId;
+            }
+            if (input.collectionId != null) {
+                hearts = await Heart.find({ userId: input.userId, collectionId: input.collectionId });
+                newHeart.collectionId = input.collectionId;
+            }
+
+            await hearts.forEach(heart => {
+                heart.remove();
+            });
+
+            newHeart.collectionId = input.collectionId;
+            newHeart.userId = input.userId;
+            return await newHeart.save();
         },
         async deleteHeart(root, { id }) {
             var heart = await Heart.findOne({ id: id });

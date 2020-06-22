@@ -36,11 +36,16 @@ export const resolvers = {
     },
     Mutation: {
         async saveRate(root, { input }) {
-            var rate = new Rate();
-            rate.contentId = input.contentId;
-            rate.userId = input.userId;
-            rate.score = input.score;
-            return await rate.save();
+            var rates = await Rate.find({ userId: input.userId, contentId: input.contentId });
+            await rates.forEach(rate => {
+                rate.remove();
+            });
+
+            var newRate = new Rate();
+            newRate.contentId = input.contentId;
+            newRate.userId = input.userId;
+            newRate.score = input.score;
+            return await newRate.save();
         },
         async deleteRate(root, { id }) {
             var rate = await Rate.findOne({ id: id });

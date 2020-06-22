@@ -29,16 +29,16 @@ export const resolvers = {
         }
     },
     Mutation: {
-        async saveWatch(root, { userId, contentId, status }) {
-            var watchs = await Watch.find({ userId: userId, contentId: contentId });
+        async saveWatch(root, { input }) {
+            var watchs = await Watch.find({ userId: input.userId, contentId: input.contentId });
             await watchs.forEach(watch => {
                 watch.remove();
             });
 
             var newWatch = new Watch();
-            newWatch.contentId = contentId;
-            newWatch.userId = userId;
-            newWatch.status = status;
+            newWatch.contentId = input.contentId;
+            newWatch.userId = input.userId;
+            newWatch.status = input.status;
             return await newWatch.save();
         },
         async deleteWatch(root, { userId, contentId }) {

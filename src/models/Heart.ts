@@ -3,25 +3,17 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, U
 import { Comment } from "./Comment";
 import { Collection } from "./Collection";
 
-export enum HeartSort {
-    COLLECTION = "COLLECTION",
-    COMMENT = "COMMENT"
-}
-
 @Entity()
 export class Heart extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        type: "enum",
-        enum: HeartSort
-    })
-    sort: HeartSort;
+    @Column()
+    collectionId: number;
 
     @Column()
-    parentId: number;
+    commentId: number;
 
     @Column()
     userId: number;

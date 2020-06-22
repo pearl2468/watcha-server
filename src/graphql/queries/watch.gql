@@ -4,13 +4,18 @@ type Query {
     notInterestedContents(userId: Int, page: Int, size: Int): [Watch!]!
 }
 type Mutation {
-    saveWatch(userId: Int, contentId: Int, status: Status): Watch
+    saveWatch(input: WatchInput): Watch
     deleteWatch(userId: Int, contentId: Int): Watch
 }
 enum Status {
     NONE
     WISH
     WATCHING
+}
+input WatchInput {
+    userId: Int
+    contentId: Int
+    status: Status
 }
 type Watch {
     id: ID!

@@ -7,19 +7,15 @@ type Mutation {
     saveHeart(input: HeartInput): Heart
     deleteHeart(id: ID!): Heart
 }
-enum HeartSort {
-    COLLECTION
-    COMMENT
-}
 input HeartInput {
-    sort: HeartSort
-    parentId: Int
+    collectionId: Int
+    commentId: Int
     userId: Int
 }
 type Heart {
     id: ID
-    sort: HeartSort
-    parentId: Int
+    collectionId: Int
+    commentId: Int
     userId: Int
     createdAt: Date
     updatedAt: Date
