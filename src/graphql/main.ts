@@ -15,7 +15,6 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     introspection: true,
-    playground: true,
   });
   
   server.listen().then(({ url }) => {
@@ -25,7 +24,6 @@ const server = new ApolloServer({
 export function makeGrpahqlHTTP() {
   return {
     schema: schema,
-    // rootValue: root,
     graphiql: true,
   };
 }

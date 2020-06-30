@@ -1,7 +1,6 @@
 import { app } from './app';
-import * as http from 'http';
-
 import { databaseConn } from './database';
+import * as http from 'http';
 
 const PORT = 8080;
 const server = http.createServer(app);
